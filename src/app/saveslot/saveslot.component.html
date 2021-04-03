@@ -1,0 +1,28 @@
+<section>
+<h2>キャラ切り替え</h2>
+<table id="saveslots">
+    <tbody>
+        <tr attr.data-savedata-id="{{saveslot.id}}" *ngFor="let saveslot of beltDataService.getSaveslots()">
+            <td class="active">
+                <button type="button" (click)="activateSaveslot(saveslot)">
+                <i class="far fa-check-square" *ngIf="saveslot.active"></i>
+                <i class="far fa-square" *ngIf="!saveslot.active"></i>
+                </button>
+            </td>
+            <td class="name">
+                <button type="button" *ngIf="editingSaveslotId !== saveslot.id" (click)="startEditSaveslot(saveslot)">{{saveslot.name !== '' ? saveslot.name : '(名称未設定)'}} <i class="fas fa-pen"></i></button>
+                <form class="editing" *ngIf="editingSaveslotId === saveslot.id" (submit)="$event.preventDefault(); completeEditSaveslot(saveslot)">
+                    <input #nameField type="text" name="name" [(ngModel)]="editingName">
+                    <button type="submit">OK</button>
+                    <button type="button" (click)="cancelEditSaveslot()">Cancel</button>
+                </form>
+            </td>
+            <td class="delete"><button type="button" (click)="deleteSaveslot(saveslot)"><i class="fas fa-trash-alt"></i></button></td>
+        </tr>
+        <tr *ngIf="isSaveslotAddable()">
+            <td colspan="3" class="add"><button type="button" (click)="addSaveslot()"><i class="fas fa-plus-circle"></i></button></td>
+        </tr>
+    </tbody>
+</table>
+<a routerLink="/" class="complete">OK</a>
+</section>

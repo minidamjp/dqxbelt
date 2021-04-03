@@ -1,0 +1,178 @@
+<nav>
+    <a routerLink="/">一覧</a>
+</nav>
+
+	<header>
+		<div class="belt-switch">
+			<input type="radio" name="switch" id="radio1" [checked]="this.beltType===0"><label for="radio1" (click)="setBeltSwitch(0);">戦神（邪神）</label>
+			<input type="radio" name="switch" id="radio2" [checked]="this.beltType===1"><label for="radio2" (click)="setBeltSwitch(1);">輝石（王家）</label>
+ 		</div>
+		<section id="completed">
+			<button type="button" class="completed" [disabled]="!isCompleted()" (click)="onClickComplete()">入力完了</button>
+		</section>
+	</header>
+	<section id="slots">
+        <table>
+            <tr *ngFor="let slot of slots; index as slotIdx" [class.active]="currentSlot === slotIdx">
+                <td><button type="button" class="category" [class.active]="currentField === 0" (click)="setCurrentSlot(slotIdx, 0);">{{getSlotCategoryName(slot)}}</button></td>
+                <td><button type="button" class="subcategory" [class.active]="currentField === 1" [class.hidden]="!shouldShowSubCategory(slot)" (click)="setCurrentSlot(slotIdx, 1);">{{getSlotSubCategory(slot)}}</button></td>
+                <td><button type="button" class="attribute" [class.active]="currentField === 2" [class.hidden]="!shouldShowAttribute(slot)" (click)="setCurrentSlot(slotIdx, 2);">{{getSlotAttribute(slot)}}</button></td>
+            </tr>
+        </table>
+    </section>
+
+	<section id="maumet" *ngIf="beltType==0">
+		<section id="category-button" [class.hidden]="currentField !== 0">
+			<div class="container" *ngFor="let group of masterDataService.getMaumetGroups()">
+				<h2>{{group.name}}</h2>
+				<button type="button" (click)="onClickCategory(category)" *ngFor="let category of masterDataService.getCategoriesOfGroup(group)">{{category.shortLabel}}</button>
+			</div>
+		</section>
+
+		<section id="subcategory-button" [class.hidden]="currentField !== 1">
+			<div>
+				<h2>属性系</h2>
+				<button type="button" (click)="onClickSubCategory(subCategory);" *ngFor="let subCategory of getSlotSubCategoryOptions(getCurrentSlot())">{{subCategory.name}}</button>
+			</div>
+		</section>
+
+		<section id="attribute-button" [class.hidden]="currentField !== 2">
+			<div>
+				<h2>すごさ</h2>
+				<button type="button" (click)="onClickAttribute(attribute);" *ngFor="let attribute of getSlotAttributeOptions(getCurrentSlot())">{{attribute.name}}</button>
+			</div>
+		</section>
+	</section>
+
+	<section id="anlucea" *ngIf="beltType==1">
+		<section id="category-button" [class.hidden]="currentField !== 0">
+			<div class="container" *ngFor="let group of masterDataService.getAnluceaGroups()">
+				<h2>{{group.name}}</h2>
+				<button type="button" (click)="onClickCategory(category)" *ngFor="let category of masterDataService.getCategoriesOfGroup(group)">{{category.shortLabel}}</button>
+			</div>
+		</section>
+<!--
+			<div class="container">
+				<h2>パラメータ系</h2>
+				<button type="button" (click)="onClickMaxHPParamAnlucea();">最大HP</button>
+				<button type="button" (click)="onClickMaxMPParamAnlucea();">最大MP</button>
+				<button type="button" (click)="onClickAttackParamAnlucea();">攻撃力</button>
+				<button type="button" (click)="onClicDefensiveParamAnlucea();">守備力</button>
+				<button type="button" (click)="onClickAttackMagicParamAnlucea();">攻撃魔力</button>
+				<button type="button" (click)="onClickRecoveryMagicParamAnlucea();">回復魔力</button>
+				<button type="button" (click)="onClickQuickParamAnlucea();">すばやさ</button>
+				<button type="button" (click)="onClickDexterityParamAnlucea();">きようさ</button>
+				<button type="button" (click)="onClickFashionableParamAnlucea();">おしゃれさ</button>
+			</div>
+			<div class="container">
+				<h2>呪文系</h2>
+				<button type="button" (click)="onClickFlameMPParamAnlucea();">炎呪文</button>
+				<button type="button" (click)="onClickIceMPParamAnlucea();">氷呪文</button>
+				<button type="button" (click)="onClickLightMPParamAnlucea();">光呪文</button>
+       		    <button type="button" (click)="onClickDarkMPParamAnlucea();">闇呪文</button>
+				<button type="button" (click)="onClickWindMPParamAnlucea();">風呪文</button>
+				<button type="button" (click)="onClickLightningMPParamAnlucea();">雷呪文</button>
+				<button type="button" (click)="onClickSoilMPParamAnlucea();">土呪文</button>
+			</div>
+			<div class="container">
+				<h2>特技系</h2>
+				<button type="button" (click)="onClickFlameATParamAnlucea();">炎特技</button>
+				<button type="button" (click)="onClickIceATParamAnlucea();">氷特技</button>
+				<button type="button" (click)="onClickLightATParamAnlucea();">光特技</button>
+       		    <button type="button" (click)="onClickDarkATParamAnlucea();">闇特技</button>
+				<button type="button" (click)="onClickWindATParamAnlucea();">風特技</button>
+				<button type="button" (click)="onClickLightningATParamAnlucea();">雷特技</button>
+				<button type="button" (click)="onClickSoilATParamAnlucea();">土特技</button>
+			</div>
+			<div class="container">
+				<h2>モンスター系</h2>
+				<button type="button" (click)="onClickDragonParamAnlucea();">ドラゴン系</button>
+				<button type="button" (click)="onClickInsectParamAnlucea();">虫系</button>
+				<button type="button" (click)="onClickBeastParamAnlucea();">けもの系</button>
+				<button type="button" (click)="onClickZombieParamAnlucea();">ゾンビ系</button>
+				<button type="button" (click)="onClickPlantParamAnlucea();">植物系</button>
+				<button type="button" (click)="onClickPhantomParamAnlucea();">怪人系</button>
+				<button type="button" (click)="onClickDevilParamAnlucea();">悪魔系</button>
+				<button type="button" (click)="onClickElementParamAnlucea();">エレメント系</button>
+				<button type="button" (click)="onClickBirdParamAnlucea();">鳥系</button>
+				<button type="button" (click)="onClickMaterialParamAnlucea();">物質系</button>
+				<button type="button" (click)="onClickSlimeParamAnlucea();">スライム系</button>
+				<button type="button" (click)="onClickMachineParamAnlucea();">マシン系</button>
+				<button type="button" (click)="onClickWaterParamAnlucea();">水系</button>
+			</div>
+			<div class="container">
+				<h2>耐性系</h2>
+				<button type="button" (click)="onClickSleepGuardParamAnlucea();">眠りG</button>
+				<button type="button" (click)="onClickConfusionGuardParamAnlucea();">混乱G</button>
+				<button type="button" (click)="onClickParalysisguardParamAnlucea();">マヒG</button>
+				<button type="button" (click)="onClickIllusionGuardParamAnlucea();">幻惑G</button>
+				<button type="button" (click)="onClickSealGuardParamAnlucea();">封印G</button>
+				<button type="button" (click)="onClickPoisonGuardParamAnlucea();">どくG</button>
+				<button type="button" (click)="onClickCurseGuardParamAnlucea();">呪いG</button>
+				<button type="button" (click)="onClickDeathGuardParamAnlucea();">即死G</button>
+				<button type="button" (click)="onClickFascinationGuardParamAnlucea();">魅了G</button>
+				<button type="button" (click)="onClickTighteningGuardParamAnlucea();">しばりG</button>
+				<button type="button" (click)="onClickFrightenedGuardParamAnlucea();">おびえG</button>
+				<button type="button" (click)="onClickFallGuardParamAnlucea();">転びG</button>
+				<button type="button" (click)="onClickDancedGuardParamAnlucea();">踊らされG</button>
+				<button type="button" (click)="onClickBlowGuardParamAnlucea();">ふっとびG</button>
+				<button type="button" (click)="onClickAbsorptionGuardParamAnlucea();">MP吸収G</button>
+				<button type="button" (click)="onClickWeakSystemParamAnlucea();">各弱体系</button>
+			</div>
+			<div class="container">
+				<h2>特殊効果系</h2>
+				<button type="button" (click)="onClickNormalDropParamAnlucea();">通常ドロ</button>
+				<button type="button" (click)="onClickRareDropParamAnlucea();">レアドロ</button>
+				<button type="button" (click)="onClickSpellSpeedParamAnlucea();">呪文速度</button>
+				<button type="button" (click)="onClickConsumptionParamAnlucea();">MP消費</button>
+				<button type="button" (click)="onClickReflectionParamAnlucea();">ダメージ反射</button>
+				<button type="button" (click)="onClickMovingSpeedParamAnlucea();">移動速度</button>
+				<button type="button" (click)="onClickSpellCriticalParamAnlucea();">会心率</button>
+				<button type="button" (click)="onClickSpellRunawayParamAnlucea();">呪文暴走率</button>
+				<button type="button" (click)="onClickAfterHPParamAnlucea();">戦闘勝利時HP</button>
+				<button type="button" (click)="onClickAfterMPParamAnlucea();">戦闘勝利時MP</button>
+			</div>
+			<div class="container">
+				<h2>攻撃時</h2>
+				<button type="button" (click)="onClickRukaniParamAnlucea();">ルカニ</button>
+				<button type="button" (click)="onClickHenatosuParamAnlucea();">ヘナトス</button>
+				<button type="button" (click)="onClickIllusionParamAnlucea();">幻惑</button>
+				<button type="button" (click)="onClickSleepParamAnlucea();">眠り</button>
+				<button type="button" (click)="onClickConfusionParamAnlucea();">混乱</button>
+				<button type="button" (click)="onClickParalysisParamAnlucea();">マヒ</button>
+				<button type="button" (click)="onClickPoisonParamAnlucea();">どく</button>
+				<button type="button" (click)="onClickVeryPoisonParamAnlucea();">猛毒</button>
+				<button type="button" (click)="onClickMahotonParamAnlucea();">マホトーン</button>
+				<button type="button" (click)="onClickFascinationParamAnlucea();">魅了</button>
+				<button type="button" (click)="onClickBukimiParamAnlucea();">ぶきみ</button>
+				<button type="button" (click)="onClickMadouParamAnlucea();">魔導の書</button>
+				<button type="button" (click)="onClickTensionDownParamAnlucea();">テンション下</button>
+				<button type="button" (click)="onClickMahoParamAnlucea();">マホ系解除</button>
+				<button type="button" (click)="onClickRihoParamAnlucea();">リホ系解除</button>
+			</div>
+			<div class="container">
+				<h2>開戦時</h2>
+				<button type="button" (click)="onClickPioraParamAnlucea();">ピオラ</button>
+				<button type="button" (click)="onClickBaishiParamAnlucea();">バイシオン</button>
+				<button type="button" (click)="onClickRihoimiParamAnlucea();">リホイミ</button>
+				<button type="button" (click)="onClickMahokiteParamAnlucea();">マホキテ</button>
+				<button type="button" (click)="onClickMahotoraParamAnlucea();">マホトラのころも</button>
+				<button type="button" (click)="onClickMakeupParamAnlucea();">メイクアップ</button>
+				<button type="button" (click)="onClickKiraponParamAnlucea();">キラポン</button>
+				<button type="button" (click)="onClickSaintParamAnlucea();">聖女の守り</button>
+				<button type="button" (click)="onClickAngelParamAnlucea();">天使の守り</button>
+				<button type="button" (click)="onClickCriticalRateParamAnlucea();">会心率上昇</button>
+				<button type="button" (click)="onClickShieldGuardParamAnlucea();">盾ガ率上昇</button>
+				<button type="button" (click)="onClickHissatsuParamAnlucea();">必殺チャージ</button>
+				<button type="button" (click)="onClickAccumulateParamAnlucea();">ためる</button>
+				<button type="button" (click)="onClickAccumulateNightParamAnlucea();">夜ためる</button>
+			</div>
+		</section>
+-->
+		<section id="attribute-button" [class.hidden]="currentField !== 2">
+			<div>
+				<h2>すごさ</h2>
+				<button type="button" (click)="onClickAttribute(attribute);" *ngFor="let attribute of getSlotAttributeOptions(getCurrentSlot())">{{attribute.name}}</button>
+			</div>
+		</section>
+	</section>

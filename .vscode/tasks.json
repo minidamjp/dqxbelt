@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start -- --open",
+			"problemMatcher": [],
+			"label": "ローカル実行",
+			"detail": "ng serve"
+		},
+		{
+			"type": "npm",
+			"script": "build -- --prod",
+			"problemMatcher": [],
+			"label": "最終成果物ビルド",
+			"detail": "ng build"
+		}
+	]
+}
