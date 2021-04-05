@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { BeltAddComponent } from './belt-add/belt-add.component';
 import { BeltListComponent } from './belt-list/belt-list.component';
 import { SaveslotComponent } from './saveslot/saveslot.component';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BeltAddComponent,
     BeltListComponent,
-    SaveslotComponent
+    SaveslotComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

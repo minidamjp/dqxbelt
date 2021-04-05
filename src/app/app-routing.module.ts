@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BeltAddComponent } from './belt-add/belt-add.component';
 import { BeltListComponent } from './belt-list/belt-list.component';
+import { HelpComponent } from './help/help.component';
 import { SaveslotComponent } from './saveslot/saveslot.component';
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'b/:id', component: BeltAddComponent },
   { path: 'i/:beltData', component: BeltListComponent },
   { path: 'saveslot', component: SaveslotComponent },
+  { path: 'help', component: HelpComponent },
   { path: '', component: BeltListComponent },
 ];
 
