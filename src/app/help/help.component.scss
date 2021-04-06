@@ -1,0 +1,48 @@
+.belt-header {
+	display: block;
+	h2 {
+		display: inline-block;
+		margin-right: 1rem;
+		margin-bottom: 0;
+	}
+	.belt-ops {
+		display: inline-block;
+	}
+}
+
+.belt-body {
+	border: #9f845c solid 0.1rem;
+	border-radius: 1rem;;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	background-color: #beac8f;
+	display: flex;
+	flex-direction: column;
+	font-size: 95%;
+}
+
+
+.kakomi-tape {
+	position: relative;
+	padding: 2rem 2rem 1rem;
+	margin: 2.5em auto;
+	background-color: #e8ddbd;
+	box-shadow: inset 0 0 40px rgba(204, 186, 136,1), 0 2px 2px #beac8f;
+   }
+.title-tape {
+	position: absolute;
+	top: -1rem;
+	left: 3rem;
+	padding: 0.4rem 2rem;
+	font-weight: bold;
+	background-color: rgba(255,255,255,.4);
+	border-left: 2px dotted rgba(0,0,0,.1);
+	border-right: 2px dotted rgba(0,0,0,.1);
+	box-shadow: 0 0 5px rgba(0,0,0,0.2); 
+	transform: rotate(-5deg);
+   }
+
+.kakomi-tape p{
+	margin-top: 0.5rem;
+	margin-bottom: 0;
+}
