@@ -191,6 +191,8 @@ export class BeltListComponent implements OnInit {
             return true;
           }
         } else {
+          return false;
+          /*戦神のベルトは属性呪文、属性攻撃のみ入力された場合には表示対象としない
           if (cond2){
             if (slot.subCategory === cond2Prefix){
               return true;
@@ -201,6 +203,7 @@ export class BeltListComponent implements OnInit {
               return true;
             }
           }
+          */
         }
 
         if (cond4){
