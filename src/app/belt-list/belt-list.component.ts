@@ -49,62 +49,68 @@ class Matcher {
     }
 
     for (const slot of belt.slots){
+      if (this.isSlotMatched(belt.beltType, slot)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-      if (belt.beltType === 0){
-        if (this.cond1){
-          if (this.cond2){
-            if (slot.category === this.cond1 && slot.subCategory === this.cond2Prefix){
-              return true;
-            } else {
-              continue;
-            }
-          }
-          if (this.cond3){
-            if (slot.category === this.cond1 && slot.subCategory === this.cond3Prefix){
-              return true;
-            } else {
-              continue;
-            }
-          }
-          if (slot.category === this.cond1){
-            return true;
-          }
-        } else {
-          return false;
-          /*戦神のベルトは属性呪文、属性攻撃のみ入力された場合には表示対象としない
-          if (cond2){
-            if (slot.subCategory === cond2Prefix){
-              return true;
-            }
-          }
-          if (cond3){
-            if (slot.subCategory === cond3Prefix){
-              return true;
-            }
-          }
-          */
-        }
-
-        if (this.cond4){
-          if (slot.category === this.cond4){
-            return true;
-          }
-        }
-      } else {
+  private isSlotMatched(beltType: number, slot: Slot): boolean {
+    if (beltType === 0){
+      if (this.cond1){
         if (this.cond2){
-          if (slot.category === this.cond2){
+          if (slot.category === this.cond1 && slot.subCategory === this.cond2Prefix){
             return true;
+          } else {
+            return false;
           }
         }
         if (this.cond3){
-          if (slot.category === this.cond3){
+          if (slot.category === this.cond1 && slot.subCategory === this.cond3Prefix){
+            return true;
+          } else {
+            return false;
+          }
+        }
+        if (slot.category === this.cond1){
+          return true;
+        }
+      } else {
+        return false;
+        /*戦神のベルトは属性呪文、属性攻撃のみ入力された場合には表示対象としない
+        if (cond2){
+          if (slot.subCategory === cond2Prefix){
             return true;
           }
         }
-        if (this.cond4){
-          if (slot.category === this.cond4Prefix){
+        if (cond3){
+          if (slot.subCategory === cond3Prefix){
             return true;
           }
+        }
+        */
+      }
+
+      if (this.cond4){
+        if (slot.category === this.cond4){
+          return true;
+        }
+      }
+    } else {
+      if (this.cond2){
+        if (slot.category === this.cond2){
+          return true;
+        }
+      }
+      if (this.cond3){
+        if (slot.category === this.cond3){
+          return true;
+        }
+      }
+      if (this.cond4){
+        if (slot.category === this.cond4Prefix){
+          return true;
         }
       }
     }
