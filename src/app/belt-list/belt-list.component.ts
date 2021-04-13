@@ -13,6 +13,14 @@ interface SearchCondition {
   label: string;
 }
 
+interface MatchedSlot extends Slot {
+  matched?: boolean;
+}
+
+interface Match {
+  slots: MatchedSlot[];
+}
+
 class Matcher {
   private cond1: string;
   private cond2: string;
@@ -43,17 +51,35 @@ class Matcher {
     }
   }
 
-  public isMatched(belt: Belt): boolean {
+  public isMatched(belt: Belt): Match | null {
     if (!this.cond1 && !this.cond2 && !this.cond3 && !this.cond4){
-      return true;
+      return {
+        slots: belt.slots,
+      };
     }
 
+    let matched = false;
+    let slots: MatchedSlot[] = [];
     for (const slot of belt.slots){
       if (this.isSlotMatched(belt.beltType, slot)) {
-        return true;
+        slots.push({
+          ...slot,
+          matched: true,
+        });
+        matched = true;
+      } else {
+        slots.push({
+          ...slot,
+          matched: false,
+        });
       }
     }
-    return false;
+    if (!matched) {
+      return null;
+    }
+    return {
+      slots,
+    };
   }
 
   private isSlotMatched(beltType: number, slot: Slot): boolean {
@@ -251,7 +277,7 @@ export class BeltListComponent implements OnInit {
     return (this.conds[series] != null && this.conds[series].label === label);
   }
 
-  isMatched(belt: Belt): boolean {
+  isMatched(belt: Belt): Match | null {
     const matcher = new Matcher(this.conds);
     return matcher.isMatched(belt);
   }

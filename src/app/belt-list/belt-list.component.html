@@ -71,7 +71,7 @@
     </div>
 </section>
 <ng-container *ngFor="let belt of getBelts();">
-    <section [class.unmatched]="!isMatched(belt)">
+    <section *ngIf="isMatched(belt) as match">
         <div class="belt-header">
             <h2>{{beltNameFormat(belt.beltType)}}のベルト{{effectFormat(belt.slots)}}</h2>
             <div class="belt-ops" *ngIf="!isImportMode()">
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="belt-body">
-            <div class="belt-slot" *ngFor="let slot of belt.slots; first as isFirst"  [class.invalid]="slot.category==null" [attr.data-test-keyTime]="belt.keyTime">
+            <div class="belt-slot" *ngFor="let slot of match.slots"  [class.matched]="slot.matched" [class.invalid]="slot.category==null" [attr.data-test-keyTime]="belt.keyTime">
                 <div class="belt-slot-crown"><i *ngIf="isCrownCheck(slot)" class="fas fa-crown"></i></div>
                 <div class="belt-slot-desc">{{stringFormat(slot)}}</div>
             </div>
