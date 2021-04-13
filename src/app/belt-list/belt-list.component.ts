@@ -13,6 +13,95 @@ interface SearchCondition {
   label: string;
 }
 
+class Matcher {
+  constructor(private conds: { [name: string]: SearchCondition}) {
+  }
+  public isMatched(belt: Belt): boolean {
+    const cond1 = this.conds['武器系']?.cond;
+    const cond2 = this.conds['呪文系']?.cond;
+    const cond3 = this.conds['特技系']?.cond;
+    const cond4 = this.conds['モンスター系']?.cond;
+    let cond2Prefix;
+    let cond3Prefix;
+    let cond4Prefix;
+
+    if (cond2){
+      cond2Prefix = cond2.substring(3, 4);
+      cond2Prefix = parseInt(cond2Prefix, 10);
+    }
+
+    if (cond3){
+      cond3Prefix = cond3.substring(3, 4);
+      cond3Prefix = parseInt(cond3Prefix, 10);
+    }
+    if (!cond1 && !cond2 && !cond3 && !cond4){
+      return true;
+    }
+
+    for (const slot of belt.slots){
+
+      if (belt.beltType === 0){
+        if (cond1){
+          if (cond2){
+            if (slot.category === cond1 && slot.subCategory === cond2Prefix){
+              return true;
+            } else {
+              continue;
+            }
+          }
+          if (cond3){
+            if (slot.category === cond1 && slot.subCategory === cond3Prefix){
+              return true;
+            } else {
+              continue;
+            }
+          }
+          if (slot.category === cond1){
+            return true;
+          }
+        } else {
+          return false;
+          /*戦神のベルトは属性呪文、属性攻撃のみ入力された場合には表示対象としない
+          if (cond2){
+            if (slot.subCategory === cond2Prefix){
+              return true;
+            }
+          }
+          if (cond3){
+            if (slot.subCategory === cond3Prefix){
+              return true;
+            }
+          }
+          */
+        }
+
+        if (cond4){
+          if (slot.category === cond4){
+            return true;
+          }
+        }
+      } else {
+        if (cond2){
+          if (slot.category === cond2){
+            return true;
+          }
+        }
+        if (cond3){
+          if (slot.category === cond3){
+            return true;
+          }
+        }
+        if (cond4){
+          cond4Prefix = '1' + cond4.substring(1, 4);
+          if (slot.category === cond4Prefix){
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+}
 
 @Component({
   selector: 'app-belt-list',
@@ -148,89 +237,8 @@ export class BeltListComponent implements OnInit {
   }
 
   isMatched(belt: Belt): boolean {
-    const cond1 = this.conds['武器系']?.cond;
-    const cond2 = this.conds['呪文系']?.cond;
-    const cond3 = this.conds['特技系']?.cond;
-    const cond4 = this.conds['モンスター系']?.cond;
-    let cond2Prefix;
-    let cond3Prefix;
-    let cond4Prefix;
-
-    if (cond2){
-      cond2Prefix = cond2.substring(3, 4);
-      cond2Prefix = parseInt(cond2Prefix, 10);
-    }
-
-    if (cond3){
-      cond3Prefix = cond3.substring(3, 4);
-      cond3Prefix = parseInt(cond3Prefix, 10);
-    }
-    if (!cond1 && !cond2 && !cond3 && !cond4){
-      return true;
-    }
-
-    for (const slot of belt.slots){
-
-      if (belt.beltType === 0){
-        if (cond1){
-          if (cond2){
-            if (slot.category === cond1 && slot.subCategory === cond2Prefix){
-              return true;
-            } else {
-              continue;
-            }
-          }
-          if (cond3){
-            if (slot.category === cond1 && slot.subCategory === cond3Prefix){
-              return true;
-            } else {
-              continue;
-            }
-          }
-          if (slot.category === cond1){
-            return true;
-          }
-        } else {
-          return false;
-          /*戦神のベルトは属性呪文、属性攻撃のみ入力された場合には表示対象としない
-          if (cond2){
-            if (slot.subCategory === cond2Prefix){
-              return true;
-            }
-          }
-          if (cond3){
-            if (slot.subCategory === cond3Prefix){
-              return true;
-            }
-          }
-          */
-        }
-
-        if (cond4){
-          if (slot.category === cond4){
-            return true;
-          }
-        }
-      } else {
-        if (cond2){
-          if (slot.category === cond2){
-            return true;
-          }
-        }
-        if (cond3){
-          if (slot.category === cond3){
-            return true;
-          }
-        }
-        if (cond4){
-          cond4Prefix = '1' + cond4.substring(1, 4);
-          if (slot.category === cond4Prefix){
-            return true;
-          }
-        }
-      }
-    }
-    return false;
+    const matcher = new Matcher(this.conds);
+    return matcher.isMatched(belt);
   }
 
   isCrownCheck(slot: Slot): boolean{
