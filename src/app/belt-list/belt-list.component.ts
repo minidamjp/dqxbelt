@@ -14,49 +14,59 @@ interface SearchCondition {
 }
 
 class Matcher {
-  constructor(private conds: { [name: string]: SearchCondition}) {
+  private cond1: string;
+  private cond2: string;
+  private cond3: string;
+  private cond4: string;
+  private cond2Prefix?: number;
+  private cond3Prefix?: number;
+  private cond4Prefix?: string;
+
+  constructor(conds: { [name: string]: SearchCondition}) {
+    this.cond1 = conds['武器系']?.cond;
+    this.cond2 = conds['呪文系']?.cond;
+    this.cond3 = conds['特技系']?.cond;
+    this.cond4 = conds['モンスター系']?.cond;
+
+    if (this.cond2){
+      const cond2PrefixStr = this.cond2.substring(3, 4);
+      this.cond2Prefix = parseInt(cond2PrefixStr, 10);
+    }
+
+    if (this.cond3){
+      const cond3PrefixStr = this.cond3.substring(3, 4);
+      this.cond3Prefix = parseInt(cond3PrefixStr, 10);
+    }
+
+    if (this.cond4){
+      this.cond4Prefix = '1' + this.cond4.substring(1, 4);
+    }
   }
+
   public isMatched(belt: Belt): boolean {
-    const cond1 = this.conds['武器系']?.cond;
-    const cond2 = this.conds['呪文系']?.cond;
-    const cond3 = this.conds['特技系']?.cond;
-    const cond4 = this.conds['モンスター系']?.cond;
-    let cond2Prefix;
-    let cond3Prefix;
-    let cond4Prefix;
-
-    if (cond2){
-      cond2Prefix = cond2.substring(3, 4);
-      cond2Prefix = parseInt(cond2Prefix, 10);
-    }
-
-    if (cond3){
-      cond3Prefix = cond3.substring(3, 4);
-      cond3Prefix = parseInt(cond3Prefix, 10);
-    }
-    if (!cond1 && !cond2 && !cond3 && !cond4){
+    if (!this.cond1 && !this.cond2 && !this.cond3 && !this.cond4){
       return true;
     }
 
     for (const slot of belt.slots){
 
       if (belt.beltType === 0){
-        if (cond1){
-          if (cond2){
-            if (slot.category === cond1 && slot.subCategory === cond2Prefix){
+        if (this.cond1){
+          if (this.cond2){
+            if (slot.category === this.cond1 && slot.subCategory === this.cond2Prefix){
               return true;
             } else {
               continue;
             }
           }
-          if (cond3){
-            if (slot.category === cond1 && slot.subCategory === cond3Prefix){
+          if (this.cond3){
+            if (slot.category === this.cond1 && slot.subCategory === this.cond3Prefix){
               return true;
             } else {
               continue;
             }
           }
-          if (slot.category === cond1){
+          if (slot.category === this.cond1){
             return true;
           }
         } else {
@@ -75,25 +85,24 @@ class Matcher {
           */
         }
 
-        if (cond4){
-          if (slot.category === cond4){
+        if (this.cond4){
+          if (slot.category === this.cond4){
             return true;
           }
         }
       } else {
-        if (cond2){
-          if (slot.category === cond2){
+        if (this.cond2){
+          if (slot.category === this.cond2){
             return true;
           }
         }
-        if (cond3){
-          if (slot.category === cond3){
+        if (this.cond3){
+          if (slot.category === this.cond3){
             return true;
           }
         }
-        if (cond4){
-          cond4Prefix = '1' + cond4.substring(1, 4);
-          if (slot.category === cond4Prefix){
+        if (this.cond4){
+          if (slot.category === this.cond4Prefix){
             return true;
           }
         }
