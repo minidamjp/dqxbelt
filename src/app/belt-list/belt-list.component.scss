@@ -114,6 +114,9 @@ section.unmatched {
 	&.invalid {
 		display: none;
 	}
+	&.matched .belt-slot-desc {
+		background-image: linear-gradient(#beac8f 70%, #c3ecb9ec 70%);
+	}
 }
 
 .belt-slot-crown {
@@ -122,8 +125,10 @@ section.unmatched {
 }
 
 .belt-slot-desc {
-	padding: 0.2rem;
+	margin: 0.2rem;
 }
+
+
 
 #export {
 	display: none;

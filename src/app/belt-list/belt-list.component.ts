@@ -59,7 +59,7 @@ class Matcher {
     }
 
     let matched = false;
-    let slots: MatchedSlot[] = [];
+    const slots: MatchedSlot[] = [];
     for (const slot of belt.slots){
       if (this.isSlotMatched(belt.beltType, slot)) {
         slots.push({
@@ -103,7 +103,7 @@ class Matcher {
           return true;
         }
       } else {
-        return false;
+        // return false;
         /*戦神のベルトは属性呪文、属性攻撃のみ入力された場合には表示対象としない
         if (cond2){
           if (slot.subCategory === cond2Prefix){
