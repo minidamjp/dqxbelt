@@ -77,7 +77,7 @@
             <div class="belt-ops" *ngIf="!isImportMode()">
                 <button type="button" (click)="onClickUpdate(belt.keyTime);"><i class="fas fa-pencil-alt"></i></button>
                 <button type="button" (click)="onClickDelete(belt.keyTime);"><i class="fas fa-trash-alt"></i></button>
-                <button type="button" (click)="onClickReadNote(belt.note);"><i *ngIf="belt.note!=''"  class="far fa-comment-alt"></i></button>
+                <button type="button" (click)="onClickReadNote(belt.note);"><i *ngIf="(belt.note!='') && (belt.note!=null)"  class="far fa-comment-alt"></i></button>
             </div>
         </div>
         <div class="belt-body">
