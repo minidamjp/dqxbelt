@@ -163,6 +163,8 @@ export class BeltListComponent implements OnInit {
   isShowExport = false;
   exportUrl = '';
   decodedBeltData?: Exportdata;
+  isReadNote = false;
+  displayNote = '';
 
   @ViewChild('exportUrlElement')
   exportUrlElement?: ElementRef;
@@ -305,6 +307,19 @@ export class BeltListComponent implements OnInit {
 
   onClickCloseExport(): void {
     this.isShowExport = false;
+  }
+
+  onClickReadNote(note?: string): void {
+    if (note == null || note === '') {
+      // ngIf があるから本当はここにはこない
+      return;
+    }
+    this.displayNote = note;
+    this.isReadNote = true;
+  }
+
+  onClickCloseReadNote(): void {
+    this.isReadNote = false;
   }
 
   copyToClickborad(): void {

@@ -254,19 +254,21 @@ export class BeltDataService {
     return clonedSlots;
   }
 
-  addBelt(keyTime: string, beltType: number, slots: Slot[]): void {
+  addBelt(keyTime: string, beltType: number, note: string, slots: Slot[]): void {
     this.belts.unshift({
       keyTime,
       beltType,
+      note,
       slots: this.copySlots(slots),
     });
     this.saveBelts();
   }
 
-  replaceBelt(keyTime: string, beltType: number, slots: Slot[]): void {
+  replaceBelt(keyTime: string, beltType: number, note: string, slots: Slot[]): void {
     for (const belt of this.belts) {
       if (keyTime === belt.keyTime) {
         belt.beltType = beltType;
+        belt.note = note;
         belt.slots = slots;
         this.saveBelts();
         return;
@@ -294,6 +296,7 @@ export class BeltDataService {
         return {
           keyTime: belt.keyTime,
           beltType: belt.beltType,
+          note: belt.note,
           slots: this.copySlots(belt.slots),
         };
       }

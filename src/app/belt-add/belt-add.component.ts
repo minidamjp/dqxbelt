@@ -26,6 +26,7 @@ export class BeltAddComponent implements OnInit {
 
   keyTime: string|null = null;
   beltType = 0;
+  note = '';
   showParam = true;
   currentSlot = 0;
   currentField = 0;   // 0: category, 1: subcategory, 2: attribute
@@ -52,6 +53,12 @@ export class BeltAddComponent implements OnInit {
       const belt = this.beltDataService.getCopyOfBelt(this.keyTime);
       if (belt != null) {
         this.beltType = belt.beltType;
+// nullかどうか聞かないとエラーになるんだけど・・・。
+        if (belt.note != null) {
+          this.note = belt.note;
+        } else {
+          this.note = '';
+        }
         this.slots = belt.slots;
       } else {
         this.router.navigate(['/']);
@@ -99,9 +106,9 @@ export class BeltAddComponent implements OnInit {
   onClickComplete(): void {
     if (this.keyTime == null) {
       const keyTime =  new Date().getTime().toString();
-      this.beltDataService.addBelt(keyTime, this.beltType, this.slots);
+      this.beltDataService.addBelt(keyTime, this.beltType, this.note, this.slots);
     } else {
-      this.beltDataService.replaceBelt(this.keyTime, this.beltType, this.slots);
+      this.beltDataService.replaceBelt(this.keyTime, this.beltType, this.note, this.slots);
     }
 
     this.router.navigate(['/']);

@@ -8,6 +8,8 @@ export interface Belt {
     keyTime: string;
     // 0: 邪神 1: 輝石
     beltType: number;
+    // メモ書く欄　必須ではない
+    note?: string;
     // スロット。要素は 5 固定。
     slots: Slot[];
 }
