@@ -100,6 +100,7 @@ export const Categories: Category[] = [
     {categoryId: '1505', label: '移動速度', attributeOptions: ['+1.0%', '+2.0%', '+3.0%'], descTemplate: '%label%  %attribute%'},
     {categoryId: '1506', label: 'かいしん率', shortLabel: '会心率', attributeOptions: ['+0.5%', '+1.0%', '+1.5%', '+2.0%'], descTemplate: '%label%  %attribute%'},
     {categoryId: '1507', label: '呪文ぼうそう率', shortLabel: '呪文暴走', attributeOptions: ['+1.0%', '+1.5%', '+2.0%', '+2.5%', '+3.0%'], descTemplate: '%label%  %attribute%'},
+    {categoryId: '1508', label: '勝利時HP', attributeOptions: ['10~20'], descTemplate: '戦闘勝利時に ＨＰが%attribute%回復'},
     {categoryId: '1509', label: '勝利時MP', attributeOptions: ['1~3'], descTemplate: '戦闘勝利時に ＭＰが%attribute%回復'},
     {categoryId: '1600', label: 'ルカニ', shortLabel: 'ルカニ', attributeOptions: ['2.0%', '2.5%', '3.0%', '3.5%', '4.0%', '4.5%', '5.0%'], descTemplate: '攻撃時 %attribute%で%label%'},
     {categoryId: '1601', label: 'ヘナトス', shortLabel: 'ヘナトス', attributeOptions: ['2.0%', '2.5%', '3.0%', '3.5%', '4.0%', '4.5%', '5.0%'], descTemplate: '攻撃時 %attribute%で%label%'},
