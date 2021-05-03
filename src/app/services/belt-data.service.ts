@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 
 import { Belt } from '../models/belt';
 import { Exportdata } from '../models/exportdata';
-import { Savedata } from '../models/savedata';
 import { Saveslot } from '../models/saveslot';
 import { Slot } from '../models/slot';
 
@@ -194,14 +193,14 @@ export class BeltDataService {
   }
 
   private deserializeBelts(beltJson: string): Belt[] | null {
-    const exportdata = this.deserializeExportdata(beltJson);
+    const exportdata = this.deserializeExportdataFromJson(beltJson);
     if (!exportdata) {
       return null;
     }
     return exportdata.belts;
   }
 
-  private deserializeExportdata(beltJson: string): Exportdata | null {
+  private deserializeExportdataFromJson(beltJson: string): Exportdata | null {
     const exportdata: Exportdata = JSON.parse(beltJson);
     if (exportdata.version == null || exportdata.version < 20210329) {
       // マスターデータ化以前の古いデータ
@@ -210,11 +209,195 @@ export class BeltDataService {
     return exportdata;
   }
 
+  private deserializeExportdataFromBinary(beltdata: Uint8Array): Exportdata | null {
+    // 0x00  確実に JSON と異なるデータにするため
+    // バージョン (1bytes)
+    // 名前
+    // 0x00
+    // 0x00
+    // ベルト分繰り返し
+    //   keyTime (should be 8byte letters)
+    //   0x00
+    //   note
+    //   0x00
+    //   0x00
+    //   スロット数 (1bytes)
+    //   スロット分繰り返し
+    //     category (2bytes)
+    //     subCategory (1bytes)
+    //     attriburte (1bytes)
+    let pos = 0;
+    const header = beltdata[pos++];
+    const version = beltdata[pos++];
+
+    const namebuf: number[] = [];
+    while (true) {
+      if (pos >= beltdata.length) {
+        break;
+      }
+      // tslint:disable-next-line: no-bitwise
+      const c = (beltdata[pos++] << 8) | beltdata[pos++];
+      if (c === 0) {
+        break;
+      }
+      namebuf.push(c);
+    }
+    const name = String.fromCharCode(...namebuf);
+
+    const belts: Belt[] = [];
+    while (true) {
+      if (pos >= beltdata.length) {
+        break;
+      }
+      const keyTimeBuf: number[] = [];
+      while (true) {
+        // tslint:disable-next-line: no-bitwise
+        const c = beltdata[pos++];
+        if (c === 0) {
+          break;
+        }
+        keyTimeBuf.push(c);
+      }
+      const keyTime = String.fromCharCode(...keyTimeBuf);
+
+      const notebuf: number[] = [];
+      while (true) {
+        if (pos >= beltdata.length) {
+          break;
+        }
+          // tslint:disable-next-line: no-bitwise
+        const c = (beltdata[pos++] << 8) | beltdata[pos++];
+        if (c === 0) {
+          break;
+        }
+        notebuf.push(c);
+      }
+      const note = String.fromCharCode(...notebuf);
+
+      let beltType = 0;
+      const slots: Slot[] = [];
+
+      const slotnum = beltdata[pos++];
+      for (let i = 0; i < slotnum; ++i) {
+        // tslint:disable-next-line: no-bitwise
+        const categoryValue = (beltdata[pos++] << 8) | beltdata[pos++];
+        const subCategory = beltdata[pos++];
+        const attribute = beltdata[pos++];
+        if (categoryValue >= 1000) {
+          beltType = 1;
+        }
+        const category = String(categoryValue).padStart(4, '0');
+        slots.push({
+          category,
+          subCategory,
+          attribute,
+        });
+      }
+
+      belts.push({
+        keyTime,
+        beltType,
+        slots,
+        note,
+      });
+    }
+
+    return {
+      name,
+      belts,
+    };
+  }
+
   private saveBelts(): void {
     localStorage.setItem(this.getItemKey(), this.serializeBelts());
   }
 
   public exportBeltData(): string {
+    return this.exportBeltDataWithBinary();
+  }
+
+  public exportBeltDataWithBinary(): string {
+    // 0x00  確実に JSON と異なるデータにするため
+    // バージョン (1bytes)
+    // 名前
+    // 0x00
+    // 0x00
+    // ベルト分繰り返し
+    //   keyTime (should be 8byte letters)
+    //   0x00
+    //   note
+    //   0x00
+    //   0x00
+    //   スロット数 (1bytes)
+    //   スロット分繰り返し
+    //     category (2bytes)
+    //     subCategory (1bytes)
+    //     attriburte (1bytes)
+    const version = 0;
+    const buffer: number[] = [];
+    buffer.push(0);
+    buffer.push(version);
+
+    for (let i = 0; i < this.activeSaveslot.name.length; ++i) {
+      const c = this.activeSaveslot.name.charCodeAt(i);
+      // tslint:disable-next-line: no-bitwise
+      buffer.push((c >> 8) & 0xff);
+      // tslint:disable-next-line: no-bitwise
+      buffer.push(c & 0xff);
+    }
+    buffer.push(0);
+    buffer.push(0);
+
+    for (const belt of this.belts) {
+      for (let i = 0; i < belt.keyTime.length; ++i) {
+        const c = belt.keyTime.charCodeAt(i);
+        // tslint:disable-next-line: no-bitwise
+        buffer.push(c & 0xff);
+      }
+      buffer.push(0);
+
+      if (belt.note) {
+        for (let i = 0; i < belt.note.length; ++i) {
+          const c = belt.note.charCodeAt(i);
+          // tslint:disable-next-line: no-bitwise
+          buffer.push((c >> 8) & 0xff);
+          // tslint:disable-next-line: no-bitwise
+          buffer.push(c & 0xff);
+        }
+      }
+      buffer.push(0);
+      buffer.push(0);
+
+      const slots: Slot[] = [];
+      for (const slot of belt.slots) {
+        if (slot.category == null) {
+          continue;
+        }
+        slots.push(slot);
+      }
+      buffer.push(slots.length);
+      for (const slot of slots) {
+        const category = (slot.category) ? parseInt(slot.category, 10) : 0;
+        // tslint:disable-next-line: no-bitwise
+        buffer.push((category >> 8) & 0xff);
+        // tslint:disable-next-line: no-bitwise
+        buffer.push(category & 0xff);
+
+        const subcategory = (slot.subCategory) ? slot.subCategory : 0;
+        // tslint:disable-next-line: no-bitwise
+        buffer.push(subcategory & 0xff);
+
+        const attribute = (slot.attribute) ? slot.attribute : 0;
+        // tslint:disable-next-line: no-bitwise
+        buffer.push(attribute & 0xff);
+    }
+  }
+    const data = new Uint8Array(buffer);
+    const compressed = Pako.deflate(data);
+    return btoa(String.fromCharCode(...compressed)).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+  }
+
+  public exportBeltDataWithJson(): string {
     const compressed = Pako.deflate(this.serializeBelts(true));
     return btoa(String.fromCharCode(...compressed)).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
   }
@@ -226,8 +409,13 @@ export class BeltDataService {
       for (let i = 0; i < binary.length; ++i) {
         bytes[i] = binary.charCodeAt(i);
       }
-      const beltJson = Pako.inflate(bytes, {to: 'string'});
-      return this.deserializeExportdata(beltJson);
+      // Pako deflates strings with UTF-8
+      const beltdata = Pako.inflate(bytes);
+      if (beltdata[0] === 0x7b) {
+        const beltJson = Pako.inflate(bytes, {to: 'string'});
+        return this.deserializeExportdataFromJson(beltJson);
+      }
+      return this.deserializeExportdataFromBinary(beltdata);
     } catch (e) {
       console.error(`Failed to parse beltData: ${b64data}: %o`, e);
       return null;
