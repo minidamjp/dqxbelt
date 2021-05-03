@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'i/:beltData', component: BeltListComponent },
   { path: 'saveslot', component: SaveslotComponent },
   { path: 'help', component: HelpComponent },
+  { path: 'help.html', component: HelpComponent },
   { path: '', component: BeltListComponent },
 ];
 

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta name="description" content="DQXの戦神、輝石ベルトを一覧管理できるツールです">
+  <meta property="og:url" content="https://dqxbelt.ikedam.jp">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DQXベルト管理ツール">
+  <meta property="og:description" content="DQXの戦神、輝石ベルトを一覧管理できるツールです">
+  <meta property="og:site_name" content="DQXベルト管理ツール">
+  <meta property="og:image" content="https://dqxbelt.ikedam.jp/favicon.ico">
+  
+	<title>使い方 - DQX ベルト管理ツール</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6ZYJPX550E"></script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+    gtag('config', 'G-6ZYJPX550E');
+  </script>
+</head>
+<body>
+  <div class="wrapper" id="help">
+    <nav>
+        <a href="/">一覧</a>
+    </nav>
+    
+    <h1>使い方</h1>
+    <div class="kakomi-tape">
+        <span class="title-tape">前提</span>
+        <p>このツールはDQXの邪神（戦神）、王家（輝石）のベルトを入力して検索できるようにするための非公式ツールです。</p>
+        <p>ここで入力されたデータはご自身の端末のローカルストレージにしか保存されません。ご自身で管理してください。</p>
+        <p>（エクスポートに関しては後述）</p>
+    </div>
+    
+    <div class="kakomi-tape">
+        <span class="title-tape">ベルト追加</span>
+        <p>戦神と輝石は効果が異なりますので最初に選択してください。</p>
+        <p>切り替えると今までこの画面で入力していた分は消えます。</p>
+        <p>入力完了ボタン押下後のデータは一覧画面より変更、削除が可能です。</p>
+    </div>
+    <div class="kakomi-tape">
+        <span class="title-tape">一覧</span>
+        <p>入力されたベルトの一覧画面です。</p>
+        <p>データエクスポート、キャラ切り替え、検索、変更、削除が可能です。</p>
+    </div>
+    <div class="kakomi-tape">
+        <span class="title-tape">エクスポート</span>
+        <p>キャラごとのベルトデータのエクスポートになります。</p>
+        <p>エクスポートをタッチするとURLにデータが埋め込まれたものが表示されます。</p>
+        <p>ベルトデータを文字列圧縮してURLの一部にしたものになります。</p>
+        <p>ちがう端末でこのキャラのベルトデータを見たいときはこのリンクをコピーして送ればその端末でも見ることができます。</p>
+        <p>但し、データの連動はしませんのでどちらかの端末で変更を加えた場合にはまたエクスポートしての受け渡しが必要となります。</p>
+        <p>バックアップしたいときはこのURLをご自身の端末のメモ帳にでも貼り付けるとかブラウザのお気に入りにいれる等をしてください。</p>
+        <p>何度もいいますがサーバーに個別のベルトのデータやキャラデータは保存していません。データの管理は各自でお願いします。</p>
+    </div>
+    <div class="kakomi-tape">
+        <span class="title-tape">キャラ切り替え</span>
+        <p>５キャラまで可能です。</p>
+        <p>キャラごとのベルトデータ登録となります。</p>
+    </div>
+    <div class="kakomi-tape">
+        <span class="title-tape">注意！！</span>
+        <p>同一キャラを複数タブで操作しないでください。</p>
+        <p>ローカルストレージが共通ですので見るだけなら問題はないですが更新した場合は想定通りの動作をいたしません。</p>
+    </div>
+    <div class="kakomi-tape">
+        <span class="title-tape">検索</span>
+        <p>検索条件として武器種、属性呪文、属性特技、モンスター特攻をそれぞれグループとしてグループ内では１つのみ選択可能です。</p>
+        <p>条件を選択すると表示されるベルトがリアルタイムで変更されます。</p>
+        <p>基本的に選択された条件を一つでも満たす効果を持つベルトが全て表示されます。但し、武器種＋属性検索は特殊な動作をします。</p>
+        <p>戦神のベルトは属性呪文、属性特技のみの指定では表示されません。属性を含めた検索をしたい場合には武器種も選択して、
+            武器種＋属性という検索をしてください。（呪文と特技をそれぞれいれても検索可能）</p>
+        <p>この武器種＋属性という検索のみ条件として連動します。</p>
+        <p>例１）片手剣闇ベルトを探している場合、［片手剣］、［闇特技］にチェックをすると戦神の片手剣闇ベルトと、輝石の闇特技ベルトを表示します。</p>
+        <p>例２）武器種［ヤリ］とモンスター特攻［あくま系］を選択した場合には、ヤリ効果のついた戦神のベルト、あくま系効果のついた戦神のベルトと輝石のベルトが表示されます。</p>
+        <p>モンスター特攻は属性とは連動しません。</p>
+    </div>
+  </div>
+  <footer>
+    &copy; minidam
+  </footer>
+</body>
+</html>
