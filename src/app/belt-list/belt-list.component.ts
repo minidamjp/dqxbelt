@@ -26,15 +26,20 @@ class Matcher {
   private cond2: string;
   private cond3: string;
   private cond4: string;
+  private cond5: string;
+  private cond6: string;
   private cond2Prefix?: number;
   private cond3Prefix?: number;
   private cond4Prefix?: string;
+  private cond5Prefix?: string;
 
   constructor(conds: { [name: string]: SearchCondition}) {
     this.cond1 = conds['武器系']?.cond;
     this.cond2 = conds['呪文系']?.cond;
     this.cond3 = conds['特技系']?.cond;
     this.cond4 = conds['モンスター系']?.cond;
+    this.cond5 = conds['パラメータ系']?.cond;
+    this.cond6 = conds['特殊効果系']?.cond;
 
     if (this.cond2){
       const cond2PrefixStr = this.cond2.substring(3, 4);
@@ -49,10 +54,22 @@ class Matcher {
     if (this.cond4){
       this.cond4Prefix = '1' + this.cond4.substring(1, 4);
     }
+// 攻撃力
+    if (this.cond5 === '1002'){
+      this.cond5Prefix = '0000';
+    }
+// 攻撃魔力
+    if (this.cond5 === '1004'){
+      this.cond5Prefix = '0001';
+    }
+// 回復魔力
+    if (this.cond5 === '1005'){
+     this.cond5Prefix = '0001';
+    }
   }
 
   public isMatched(belt: Belt): Match | null {
-    if (!this.cond1 && !this.cond2 && !this.cond3 && !this.cond4){
+    if (!this.cond1 && !this.cond2 && !this.cond3 && !this.cond4 && !this.cond5 && !this.cond6){
       return {
         slots: belt.slots,
       };
@@ -123,6 +140,12 @@ class Matcher {
           return true;
         }
       }
+      if (this.cond5){
+        if (slot.category === this.cond5Prefix){
+          return true;
+        }
+      }
+
     } else {
       if (this.cond2){
         if (slot.category === this.cond2){
@@ -136,6 +159,16 @@ class Matcher {
       }
       if (this.cond4){
         if (slot.category === this.cond4Prefix){
+          return true;
+        }
+      }
+      if (this.cond5){
+        if (slot.category === this.cond5){
+          return true;
+        }
+      }
+      if (this.cond6){
+        if (slot.category === this.cond6){
           return true;
         }
       }
