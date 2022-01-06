@@ -22,7 +22,7 @@
             <button type="button" [class.active]="isCondActive('武器系', '片手剣')" (click)="onClickSearch('武器系', '0100', '片手剣');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>片手剣</button>
             <button type="button" [class.active]="isCondActive('武器系', '両手剣')" (click)="onClickSearch('武器系', '0101', '両手剣');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>両手剣</button>
             <button type="button" [class.active]="isCondActive('武器系', '短剣')" (click)="onClickSearch('武器系', '0102', '短剣');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>短剣</button>
-            <button type="button" [class.active]="isCondActive('武器系', 'スティック')" (click)="onClickSearch('武器系', '0103', 'スティック');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>スティ</button>
+            <button type="button" [class.active]="isCondActive('武器系', 'スティック')" (click)="onClickSearch('武器系', '0103', 'スティック');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>スティック</button>
             <button type="button" [class.active]="isCondActive('武器系', '両手杖')" (click)="onClickSearch('武器系', '0104', '両手杖');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>両手杖</button>
             <button type="button" [class.active]="isCondActive('武器系', 'ヤリ')" (click)="onClickSearch('武器系', '0105', 'ヤリ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ヤリ</button>
             <button type="button" [class.active]="isCondActive('武器系', 'オノ')" (click)="onClickSearch('武器系', '0106', 'オノ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>オノ</button>
@@ -31,7 +31,7 @@
             <button type="button" [class.active]="isCondActive('武器系', 'ツメ')" (click)="onClickSearch('武器系', '0109', 'ツメ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ツメ</button>
             <button type="button" [class.active]="isCondActive('武器系', '扇')" (click)="onClickSearch('武器系', '0110', '扇');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>扇</button>
             <button type="button" [class.active]="isCondActive('武器系', 'ムチ')" (click)="onClickSearch('武器系', '0111', 'ムチ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ムチ</button>
-            <button type="button" [class.active]="isCondActive('武器系', 'ブーメラン')" (click)="onClickSearch('武器系', '0112', 'ブーメラン');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ブメ</button>
+            <button type="button" [class.active]="isCondActive('武器系', 'ブーメラン')" (click)="onClickSearch('武器系', '0112', 'ブーメラン');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ブーメラン</button>
             <button type="button" [class.active]="isCondActive('武器系', '弓')" (click)="onClickSearch('武器系', '0113', '弓');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>弓</button>
             <button type="button" [class.active]="isCondActive('武器系', '鎌')" (click)="onClickSearch('武器系', '0114', '鎌');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>鎌</button>
         </div>
@@ -43,6 +43,12 @@
             <button type="button" [class.active]="isCondActive('呪文系', '風呪文')" (click)="onClickSearch('呪文系', '1104', '風呪文');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>風呪文</button>
             <button type="button" [class.active]="isCondActive('呪文系', '雷呪文')" (click)="onClickSearch('呪文系', '1105', '雷呪文');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>雷呪文</button>
             <button type="button" [class.active]="isCondActive('呪文系', '土呪文')" (click)="onClickSearch('呪文系', '1106', '土呪文');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>土呪文</button>
+
+            <button class="separator" type="button" [class.active]="isCondActive('パラメータ系', '攻撃力')" (click)="onClickSearch('パラメータ系', '1002', '攻撃力');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>攻撃力</button>
+            <button type="button" [class.active]="isCondActive('パラメータ系', '攻魔')" (click)="onClickSearch('パラメータ系', '1004', '攻魔');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>攻魔</button>
+            <button type="button" [class.active]="isCondActive('パラメータ系', '回魔')" (click)="onClickSearch('パラメータ系', '1005', '回魔');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>回魔</button>
+            <button type="button" [class.active]="isCondActive('特殊効果系', '通ドロ')" (click)="onClickSearch('特殊効果系', '1500', '通ドロ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>通ドロ</button>
+            <button type="button" [class.active]="isCondActive('特殊効果系', 'レアドロ')" (click)="onClickSearch('特殊効果系', '1501', 'レアドロ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>レアドロ</button>
         </div>
         <div class="container">
             <button type="button" [class.active]="isCondActive('特技系', '炎特技')" (click)="onClickSearch('特技系', '1200', '炎特技');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>炎特技</button>
@@ -54,26 +60,19 @@
             <button type="button" [class.active]="isCondActive('特技系', '土特技')" (click)="onClickSearch('特技系', '1206', '土特技');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>土特技</button>
         </div>
         <div class="container">
-            <button type="button" [class.active]="isCondActive('モンスター系', 'ドラゴン系')" (click)="onClickSearch('モンスター系', '0300', 'ドラゴン系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ドラゴン</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '虫系')" (click)="onClickSearch('モンスター系', '0301', '虫系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>虫</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '獣系')" (click)="onClickSearch('モンスター系', '0302', '獣系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>獣</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', 'ゾンビ系')" (click)="onClickSearch('モンスター系', '0303', 'ゾンビ系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ゾンビ</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '植物系')" (click)="onClickSearch('モンスター系', '0304', '植物系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>植物</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '怪人系')" (click)="onClickSearch('モンスター系', '0305', '怪人系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>怪人</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '悪魔系')" (click)="onClickSearch('モンスター系', '0306', '悪魔系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>悪魔</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', 'エレ系')" (click)="onClickSearch('モンスター系', '0307', 'エレ系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>エレ</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '鳥系')" (click)="onClickSearch('モンスター系', '0308', '鳥系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>鳥</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '物質系')" (click)="onClickSearch('モンスター系', '0309', '物質系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>物質</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', 'スライム系')" (click)="onClickSearch('モンスター系', '0310', 'スライム系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>スライム</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', 'マシン系')" (click)="onClickSearch('モンスター系', '0311', 'マシン系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>マシン</button>
-            <button type="button" [class.active]="isCondActive('モンスター系', '水系')" (click)="onClickSearch('モンスター系', '0312', '水系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>水</button>
-        </div>
-        <div class="container">
-            <button type="button" [class.active]="isCondActive('パラメータ系', '攻撃力')" (click)="onClickSearch('パラメータ系', '1002', '攻撃力');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>攻撃力</button>
-            <button type="button" [class.active]="isCondActive('パラメータ系', '攻魔')" (click)="onClickSearch('パラメータ系', '1004', '攻魔');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>攻魔</button>
-            <button type="button" [class.active]="isCondActive('パラメータ系', '回魔')" (click)="onClickSearch('パラメータ系', '1005', '回魔');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>回魔</button>
-            <button type="button" [class.active]="isCondActive('特殊効果系', '通ドロ')" (click)="onClickSearch('特殊効果系', '1500', '通ドロ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>通ドロ</button>
-            <button type="button" [class.active]="isCondActive('特殊効果系', 'レアドロ')" (click)="onClickSearch('特殊効果系', '1501', 'レアドロ');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>レアドロ</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', 'ドラゴン系')" (click)="onClickSearch('モンスター系', '0300', 'ドラゴン系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ドラゴン系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '虫系')" (click)="onClickSearch('モンスター系', '0301', '虫系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>虫系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '獣系')" (click)="onClickSearch('モンスター系', '0302', '獣系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>獣系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', 'ゾンビ系')" (click)="onClickSearch('モンスター系', '0303', 'ゾンビ系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>ゾンビ系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '植物系')" (click)="onClickSearch('モンスター系', '0304', '植物系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>植物系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '怪人系')" (click)="onClickSearch('モンスター系', '0305', '怪人系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>怪人系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '悪魔系')" (click)="onClickSearch('モンスター系', '0306', '悪魔系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>悪魔系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', 'エレ系')" (click)="onClickSearch('モンスター系', '0307', 'エレ系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>エレ系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '鳥系')" (click)="onClickSearch('モンスター系', '0308', '鳥系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>鳥系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '物質系')" (click)="onClickSearch('モンスター系', '0309', '物質系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>物質系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', 'スライム系')" (click)="onClickSearch('モンスター系', '0310', 'スライム系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>スライム系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', 'マシン系')" (click)="onClickSearch('モンスター系', '0311', 'マシン系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>マシン系</button>
+            <button type="button" [class.active]="isCondActive('モンスター系', '水系')" (click)="onClickSearch('モンスター系', '0312', '水系');"><i class="checked far fa-check-square"></i><i class="unchecked far fa-square"></i>水系</button>
         </div>
     </div>
 </section>
