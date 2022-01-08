@@ -181,6 +181,17 @@ export class BeltDataService {
     }
   }
 
+  private fixBelts(belts: Belt[]): Belt[] {
+    // バージョンによらないベルトデータの補正処理
+    // * slots は5個固定
+    for (const belt of belts) {
+      while (belt.slots.length < 5) {
+        belt.slots.push({});
+      }
+    }
+    return belts;
+  }
+
   private serializeBelts(withName?: boolean): string {
     const exportdata: Exportdata = {
       version: 20210329,
@@ -206,6 +217,7 @@ export class BeltDataService {
       // マスターデータ化以前の古いデータ
       return null;
     }
+    exportdata.belts = this.fixBelts(exportdata.belts);
     return exportdata;
   }
 
@@ -304,7 +316,7 @@ export class BeltDataService {
 
     return {
       name,
-      belts,
+      belts: this.fixBelts(belts),
     };
   }
 
